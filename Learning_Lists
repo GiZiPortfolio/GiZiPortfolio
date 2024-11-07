@@ -1,0 +1,29 @@
+# This is a Codecademy Project I completed. 
+You've been hired to work on a retrospective of Frida Kahlo's work at a major museum. Your job is to put together the audio tour, but in order to do that you need to create a list of each painting featured in the exhibit, the date it was painted, and its spot in the tour. 
+
+Use your knowledge of Python lists to create a master list of each painting, its date, and its audio tour ID. 
+
+paintings = ["The Two Fridas", "My Dress Hangs Here", "Tree of Hope", "Self Portrait With Monkeys"]
+dates = [1939, 1933, 1946, 1940]
+paintings = list(zip(paintings, dates))
+print(paintings)
+
+#so first I created a zipped list and then I added more paintings to my list.
+
+addition1 = ["The Broken Column", 1944]
+addition2 = ["Theo Wounded Deer", 1946]
+addition3 = ["Me and My Doll", 1937]
+paintings.append(addition1)
+paintings.append(addition2)
+paintings.append(addition3)
+print(paintings)
+
+#The next challenge was to assign an audio tour to each painting
+
+len(list(paintings))
+audio_tour_number = list(range(1, len(paintings) +1))
+print(audio_tour_number)
+master_list = list(zip(audio_tour_number, paintings))
+print(master_list)
+
+#Therfor I found out how many items were in my paintings-list and created a ID for each item. In the last step I zipped together the paintings list and their IDs.
