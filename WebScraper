@@ -1,0 +1,42 @@
+import requests
+from bs4 import BeautifulSoup
+import os
+from datetime import datetime
+import hashlib
+import matplotlib.pyplot as plt
+
+
+# URL der Webseite
+base_url = "https:www.exampleurl.com"
+url = base_url
+
+# Verzeichnis zum Speichern der Bilder
+if not os.path.exists("bilder"):
+    os.mkdir("bilder")
+
+def generate_filename(img_url):
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    hash_object = hashlib.md5(img_url.encode())
+    hash_str = hash_object.hexdigest()[:6]
+    extension = os.path.splitext(img_url)[1] or ".jpg"
+    return f"img_{timestamp}_{hash_str}{extension}"
+
+while url:
+    # Webseite abrufen
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    # Alle Bild-Tags finden
+    images = soup.find_all("img")
+
+    # Bilder herunterladen
+    for img in images:
+        img_url = img.get("src")
+        if img_url and img_url.startswith("http"):
+            img_data = requests.get(img_url).content
+            img_name = generate_filename(img_url)
+            with open(f"bilder/{img_name}", "wb") as f:
+                f.write(img_data)
+            print(f"Heruntergeladen: {img_name}")
+
+print("Alle Seiten wurden durchsucht und Bilder heruntergeladen.")
